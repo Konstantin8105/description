@@ -15,8 +15,10 @@ import (
 	errorTree "github.com/Konstantin8105/errors"
 )
 
+// ListName is name of typical description list
 const ListName string = "Description"
 
+// Description of package variables
 var Description map[string]string = map[string]string{
 	"filename":   "name of file",
 	"filenames":  "names of files",
@@ -37,11 +39,17 @@ var Description map[string]string = map[string]string{
 	"name": "", "names": "", "ns": "", "val": "", "w": "",
 }
 
+// List of descriptions parts
 type List struct {
+	// List of variable names
 	Names []string
+
+	// Founded description list in Go files
 	Descr map[string]string
 }
 
+// Report return typical representation of description and warning for
+// variables without description
 func (l List) Report() (rep string, warnings error) {
 	et := errorTree.New("report errors:")
 
@@ -70,6 +78,7 @@ func (l List) Report() (rep string, warnings error) {
 	return
 }
 
+// New return description data
 func New(rootFolder string) (list *List, err error) {
 	list = new(List)
 	list.Descr = map[string]string{} // initialization
@@ -115,6 +124,7 @@ func New(rootFolder string) (list *List, err error) {
 	return
 }
 
+// Template return Go code for all variable names
 func Template(rootFolder string) (gocode string) {
 	n, _ := New(rootFolder)
 	var buf bytes.Buffer
